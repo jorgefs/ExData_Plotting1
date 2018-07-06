@@ -13,14 +13,18 @@ r <- as.POSIXct(round(range(power_consumption$Datetime),"days"))
 png(file="plot3.png", width = 480, height = 480, units = "px")
 
 with(power_consumption, {
-  
+  # First metering plot (without x-axis ticks)
   plot(Datetime, Sub_metering_1, type="l", col="black", main="", ylab="Energy sub metering", xlab="", ylim=c(0,38))
 
+  # 2nd & 3th plots
   lines(Datetime, Sub_metering_2, col="red")
   lines(Datetime, Sub_metering_3, col="blue")
-  axis.POSIXct(1, at=seq(r[1], r[2], by = "day"), format="%a")
-
-  legend("topright", lty= c(1,1), col=c("black","red","blue"), legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 })
+
+# Add custom x-axis ticks
+axis.POSIXct(1, at=seq(r[1], r[2], by = "day"), format="%a")
+
+# Add legend
+legend("topright", lty=1, col=c("black","red","blue"), legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
 dev.off()
